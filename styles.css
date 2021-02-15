@@ -5,6 +5,7 @@ html {
   height: 100vh;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .container {
@@ -16,6 +17,7 @@ html {
   background-color: #fe251b;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .box {

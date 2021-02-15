@@ -1,22 +1,23 @@
 const duration = 500;
-const numDigits = 4;
 const container = document.querySelector(".container");
-let grid = [80, 45];
+const orient = window.orientation;
+let grid;
+const maxR = 1;
 
-if (window.orientation) {
-  switch (window.orientation) {
+if (orient != null) {
+  switch (orient) {
     case -90:
-      grid = [80, 45];
-      break;
     case 90:
       grid = [80, 45];
       break;
     default:
       grid = [45, 80];
   }
+} else {
+  grid = [80, 45];
 }
 
-console.log(grid);
+console.log(orient, grid)
 const cols = grid[0];
 const rows = grid[1];
 const numberOfElements = cols * rows;
@@ -168,7 +169,7 @@ async function run(radius) {
 }
 
 let radius = [];
-for (let r = 0.1; r < 1; r += 0.1) {
+for (let r = 0.1; r < maxR; r += 0.1) {
   radius.push(r);
 }
 
