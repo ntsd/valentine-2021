@@ -1,35 +1,10 @@
 const duration = 500;
 const container = document.querySelector(".container");
-const orient = window.orientation;
+
 let grid;
+let cols;
+let rows;
 const maxR = 1;
-
-if (orient != null) {
-  switch (orient) {
-    case -90:
-    case 90:
-      grid = [80, 45];
-      break;
-    default:
-      grid = [45, 80];
-  }
-} else {
-  grid = [80, 45];
-}
-
-console.log(orient, grid)
-const cols = grid[0];
-const rows = grid[1];
-const numberOfElements = cols * rows;
-
-const boxFragment = document.createDocumentFragment();
-for (let i = 0; i < numberOfElements; i++) {
-  const box = document.createElement("div");
-  box.className = "box";
-  boxFragment.appendChild(box);
-}
-
-container.appendChild(boxFragment);
 
 function playAnimation2() {
   anime({
@@ -153,7 +128,7 @@ function removeTargets(nodeIds) {
   });
 }
 
-async function run(radius) {
+async function animate(radius) {
   for await (let r of radius) {
     const nodeIds = await draw(r);
 
@@ -168,9 +143,46 @@ async function run(radius) {
   await playAnimation();
 }
 
-let radius = [];
-for (let r = 0.1; r < maxR; r += 0.1) {
-  radius.push(r);
+function run() {
+  container.innerHTML = '';
+  const orient = window.orientation;
+  if (orient != null) {
+    switch (orient) {
+      case -90:
+      case 90:
+        grid = [80, 45];
+        break;
+      default:
+        grid = [45, 80];
+    }
+  } else {
+    grid = [80, 45];
+  }
+  
+  console.log(orient, grid)
+  cols = grid[0];
+  rows = grid[1];
+  const numberOfElements = cols * rows;
+  
+  const boxFragment = document.createDocumentFragment();
+  for (let i = 0; i < numberOfElements; i++) {
+    const box = document.createElement("div");
+    box.className = "box";
+    boxFragment.appendChild(box);
+  }
+  
+  container.appendChild(boxFragment);
+  
+  let radius = [];
+  for (let r = 0.1; r < maxR; r += 0.1) {
+    radius.push(r);
+  }
+  
+  animate(radius);  
 }
 
-run(radius);
+run();
+
+window.addEventListener("orientationchange", function() {
+  run();
+}, false);
