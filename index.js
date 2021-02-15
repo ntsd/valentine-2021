@@ -98,7 +98,7 @@ function playAnimation() {
 
 function draw(r) {
   let nodeIds = [];
-  for (let a = 0; a < 6.283; a = a + 0.1 - r / 25) {
+  for (let a = 0; a < 6.283; a = a + 0.1 - r / 20) { // a + 0.1 - r / 25
     const x =
       Math.round(r * 16 * Math.pow(Math.sin(a), 3)) + Math.round(cols / 2);
     const y =
